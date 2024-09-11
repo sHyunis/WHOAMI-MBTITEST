@@ -11,6 +11,12 @@
       "email": "alice0751@naver.com",
       "password": "Beast1016!",
       "nickname": "어랑"
+    },
+    {
+      "id": "b248",
+      "email": "gkalice0751@gmail.com",
+      "password": "Beast1016!",
+      "nickname": "추석"
     }
   ],
   "profiles": [
@@ -23,33 +29,33 @@
   ],
   "testResults": [
     {
-      "id": "8776",
-      "userId": "28bc",
-      "nickname": "하늘이",
-      "result": "INFP",
+      "id": "d152",
+      "userId": "b248",
+      "nickname": "추석",
+      "result": "ESFP",
       "answers": [
+        "YES",
+        "YES",
+        "NO",
         "NO",
         "YES",
         "YES",
         "NO",
-        null,
-        null,
-        null,
-        null,
+        "YES",
+        "YES",
+        "NO",
+        "NO",
+        "NO",
+        "NO",
+        "NO",
+        "NO",
         "NO",
         "NO",
         "YES",
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null,
-        null
+        "NO",
+        "NO"
       ],
-      "date": "2024-09-11T07:58:34.405Z",
+      "date": "2024-09-11T11:04:22.957Z",
       "visibility": true
     }
   ]
