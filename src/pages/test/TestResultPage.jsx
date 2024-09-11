@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
-import { getTestResults } from "../../api/testResults"; // API 함수 임포트
+import { getTestResults } from "../../api/testResults";
 import Button from "../../components/Button";
 
 const TestResultPage = ({ onDelete }) => {
@@ -40,7 +40,7 @@ const TestResultPage = ({ onDelete }) => {
           <div key={result.id} className="mb-4 border border-navy p-4 rounded">
             <p>닉네임: {result.nickname}</p>
             <p>MBTI 결과: {result.result}</p>
-            <p>응답일: {new Date(result.date).toLocaleDateString()}</p>
+            <p>{new Date(result.date).toLocaleDateString()}</p>
             <Button
               width="60px"
               backgroundColor="rgb(239, 123, 123)"
