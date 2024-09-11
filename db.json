@@ -21,5 +21,36 @@
       "nickname": "우리집 하늘이 귀여워"
     }
   ],
-  "testResults": []
+  "testResults": [
+    {
+      "id": "8776",
+      "userId": "28bc",
+      "nickname": "하늘이",
+      "result": "INFP",
+      "answers": [
+        "NO",
+        "YES",
+        "YES",
+        "NO",
+        null,
+        null,
+        null,
+        null,
+        "NO",
+        "NO",
+        "YES",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "date": "2024-09-11T07:58:34.405Z",
+      "visibility": true
+    }
+  ]
 }
