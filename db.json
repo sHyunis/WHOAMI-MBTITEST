@@ -109,6 +109,36 @@
       ],
       "date": "2024-09-11T15:08:43.840Z",
       "visibility": true
+    },
+    {
+      "id": "d59c",
+      "userId": "alice0751@naver.com",
+      "nickname": "maybe",
+      "result": "INFP",
+      "answers": [
+        "NO",
+        "YES",
+        "NO",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "date": "2024-09-11T15:48:33.158Z",
+      "visibility": true
     }
   ]
 }
