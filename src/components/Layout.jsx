@@ -4,16 +4,16 @@ import useBearsStore from "../zustand/bearsStore";
 import Button from "./Button";
 
 const Layout = ({ children }) => {
-  const { user, logout, error } = useBearsStore((state) => ({
+  const { user, setUser } = useBearsStore((state) => ({
     user: state.user,
-    logout: state.logout,
-    error: state.error,
+    setUser: state.setuser,
   }));
 
   const navigate = useNavigate();
 
-  const handleLogout = async () => {
-    await logout();
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    setUser(null);
     navigate("/");
   };
 

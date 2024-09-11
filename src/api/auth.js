@@ -1,56 +1,47 @@
 import { useQuery, useMutation } from "@tanstack/react-query";
-import api from "./api";
+// import api from "./api";
 import useBearsStore from "../zustand/bearsStore";
+import axios from "axios";
+
+const API_URL = "https://moneyfulpublicpolicy.co.kr";
+
+// 회원가입
+export const register = async (userData) => {
+  const response = await axios.post(`${API_URL}/register`, userData);
+  return response.data;
+};
+
+// 로그인
+export const login = async (userData) => {
+  const { setUser } = useBearsStore.getState();
+  try {
+    const response = await axios.post(`${API_URL}/login`, userData);
+    const user = response.data;
+    setUser(user); // 로그인 성공 시 user 상태 업데이트
+    return user;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Login failed");
+  }
+};
 
 // 사용자 프로필 가져오기
-export const useUserProfile = (id) => {
-  const { user } = useBearsStore((state) => ({
-    user: state.user,
-  }));
-
-  return useQuery({
-    queryKey: ["profiles", id],
-    queryFn: async () => {
-      if (!user) throw new Error("User is not logged in");
-      const response = await api.get(`/profiles`, { params: { userId: id } });
-      return response.data[0];
-    },
-    onError: (error) => {
-      console.error("프로필 가져오기 오류:", error.message);
+export const getUserProfile = async (token) => {
+  const response = await axios.get(`${API_URL}/user`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
     },
   });
+  return response.data;
 };
 
 // 프로필 업데이트
-export const useUpdateProfile = () => {
-  const { user } = useBearsStore((state) => ({
-    user: state.user,
-  }));
-
-  return useMutation({
-    mutationFn: async (formData) => {
-      if (!user) throw new Error("User is not logged in");
-      const response = await api.patch(`/profiles/${user.id}`, formData);
-      return response.data;
-    },
-    onError: (error) => {
-      console.error("프로필 업데이트 오류:", error.message);
+export const upDateProfile = async (formData) => {
+  const token = localStorage.getItem("accessToken");
+  const response = await axios.patch(`${API_URL}/profile`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+      Authorization: `Bearer ${token}`,
     },
   });
-};
-
-// 로그아웃
-export const useLogout = () => {
-  const { logout } = useBearsStore((state) => ({
-    logout: state.logout,
-  }));
-
-  return useMutation({
-    mutationFn: async () => {
-      logout();
-    },
-    onError: (error) => {
-      console.error("로그아웃 오류:", error.message);
-    },
-  });
+  return response.data;
 };

@@ -1,25 +1,47 @@
-import api from "./api.js";
+import axios from "axios";
+
+const API_URL = "http://localhost:5000/testResults";
 
 // 테스트 결과 가져오기
 export const getTestResults = async () => {
-  const response = await api.get("/testResults");
-  return response.data;
+  try {
+    const response = await axios.get(API_URL);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to fetch test results:", error);
+    throw new Error("Failed to fetch test results.");
+  }
 };
 
 // 테스트 결과 생성
 export const createTestResult = async (resultData) => {
-  const response = await api.post("/testResults", resultData);
-  return response.data;
+  try {
+    const response = await axios.post(API_URL, resultData);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to create test result:", error);
+    throw new Error("Failed to create test result.");
+  }
 };
 
-// 테스트 삭제
+// 테스트 결과 삭제
 export const deleteTestResult = async (id) => {
-  const response = await api.delete(`/testResults/${id}`);
-  return response.data;
+  try {
+    const response = await axios.delete(`${API_URL}/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Failed to delete test result:", error);
+    throw new Error("Failed to delete test result.");
+  }
 };
 
-// 테스트 수정
+// 테스트 결과 공개 업데이트
 export const updateTestResultVisibility = async (id, visibility) => {
-  const response = await api.patch(`/testResults/${id}`, { visibility });
-  return response.data;
+  try {
+    const response = await axios.patch(`${API_URL}/${id}`, { visibility }); // 수정된 부분
+    return response.data;
+  } catch (error) {
+    console.error("Failed to update test result visibility:", error);
+    throw new Error("Failed to update test result visibility.");
+  }
 };

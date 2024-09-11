@@ -1,60 +1,52 @@
-import React, { useEffect } from "react";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { getTestResults } from "../../api/testResults";
-import Button from "../../components/Button";
+import TestResultList from "./TestResultList";
+import useBearsStore from "../../zustand/bearsStore";
 
-const TestResultPage = ({ onDelete }) => {
-  const queryClient = useQueryClient();
-  const { id } = useParams(); // URL 파라미터에서 사용자 ID 가져오기
+const TestResult = () => {
+  const [results, setResults] = useState([]);
+  const user = useBearsStore((state) => state.user);
 
-  // 테스트 결과를 가져오기 위한 쿼리
-  const {
-    data: testResults,
-    isLoading,
-    error,
-  } = useQuery({
-    queryKey: ["testResults", id],
-    queryFn: () => getTestResults(id), // 사용자 ID에 따라 테스트 결과를 가져오는 함수 호출
-    enabled: !!id, // ID가 존재할 때만 쿼리 실행
-  });
+  const fetchResults = async () => {
+    try {
+      const data = await getTestResults();
+      if (Array.isArray(data)) {
+        setResults(data);
+      } else {
+        setResults([]);
+      }
+    } catch (error) {
+      console.error("Failed to fetch results:", error);
+      setResults([]);
+    }
+  };
 
   useEffect(() => {
-    if (id) {
-      queryClient.invalidateQueries(["testResults", id]); // ID가 변경되면 쿼리 무효화
-    }
-  }, [id, queryClient]);
+    fetchResults();
+  }, []);
 
-  if (isLoading) return <p>로딩 중...</p>;
-  if (error) return <p>오류: {error.message}</p>;
-  if (!testResults || testResults.length === 0)
-    return <p>테스트 결과가 없습니다.</p>;
+  const handleUpdate = () => {
+    fetchResults();
+  };
+
+  const handleDelete = () => {
+    fetchResults();
+  };
 
   return (
-    <>
-      <h2 className="mb-4 mt-4 w-[330px] bg-navy text-white mx-auto rounded">
-        YOUR RESULTS
-      </h2>
-      <div className="p-4 w-[330px]">
-        {testResults.map((result) => (
-          <div key={result.id} className="mb-4 border border-navy p-4 rounded">
-            <p>닉네임: {result.nickname}</p>
-            <p>MBTI 결과: {result.result}</p>
-            <p>{new Date(result.date).toLocaleDateString()}</p>
-            <Button
-              width="60px"
-              backgroundColor="rgb(239, 123, 123)"
-              color="white"
-              height="18px"
-              onClick={() => onDelete(result.id)}
-            >
-              DELETE
-            </Button>
-          </div>
-        ))}
+    <div className="w-full flex flex-col items-center justify-center  shadow-lg rounded-lg p-8">
+      <div className=" max-w-2xl w-full">
+        <h1 className="text-3xl font-bold text-primary-color mb-6 text-center">
+          TEST RESULT
+        </h1>
+        <TestResultList
+          results={results}
+          onUpdate={handleUpdate}
+          onDelete={handleDelete}
+        />
       </div>
-    </>
+    </div>
   );
 };
 
-export default TestResultPage;
+export default TestResult;

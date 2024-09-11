@@ -3,53 +3,66 @@ import Button from "./Button";
 import useBearsStore from "../zustand/bearsStore";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import Input from "./Input";
+import { getUserProfile, login, register } from "../api/auth";
 
 const AuthForm = () => {
-  const [nickname, setNickname] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-
   const navigate = useNavigate();
   const location = useLocation();
 
-  const { setMode, mode, login, register, error, loading } = useBearsStore(
-    (state) => ({
-      setMode: state.setMode,
-      mode: state.mode,
-      login: state.login,
-      register: state.register,
-      error: state.error,
-      loading: state.loading,
-    })
-  );
+  const [formData, setFormData] = useState({
+    id: "",
+    password: "",
+    nickname: "",
+  });
+
+  const { setUser, mode, setMode } = useBearsStore((state) => ({
+    setUser: state.setUser,
+    mode: state.mode,
+    setMode: state.setMode,
+  }));
+
+  const handleChange = (e) => {
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleLogin = async () => {
+    try {
+      const loginData = await login(formData);
+      localStorage.setItem("accessToken", loginData.accessToken);
+
+      const userProfile = await getUserProfile(loginData.accessToken);
+      setUser(userProfile);
+      navigate("/");
+    } catch (error) {
+      alert("로그인에 실패했습니다.");
+    }
+  };
+
+  const handleSignup = async () => {
+    try {
+      await register(formData);
+      alert("회원가입에 성공했습니다.");
+      navigate("/login");
+    } catch (error) {
+      alert("회원가입에 실패했습니다.");
+    }
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (mode === "login") {
+      handleLogin();
+    } else {
+      handleSignup();
+    }
+  };
 
   useEffect(() => {
     setMode(location.pathname === "/sign-up" ? "signUp" : "login");
   }, [location.pathname, setMode]);
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "email") setEmail(value);
-    else if (name === "password") setPassword(value);
-    else if (name === "nickname") setNickname(value);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    try {
-      if (mode === "signUp") {
-        await register(email, password, nickname);
-      } else {
-        await login(email, password);
-      }
-      setNickname("");
-      setEmail("");
-      setPassword("");
-      navigate("/");
-    } catch (err) {
-      console.error("Submission Error:", err);
-    }
-  };
 
   return (
     <form
@@ -60,13 +73,12 @@ const AuthForm = () => {
 
       <div className="mb-4">
         <Input
-          name="email"
+          name="id"
           placeholder="EMAIL"
           type="text"
           onChange={handleChange}
-          value={email}
+          value={formData.id}
           required
-          disabled={loading}
           borderBottom="1px solid rgb(32, 32, 36)"
         />
         <Input
@@ -74,9 +86,8 @@ const AuthForm = () => {
           placeholder="PASSWORD"
           type="password"
           onChange={handleChange}
-          value={password}
+          value={formData.password}
           required
-          disabled={loading}
           borderBottom="1px solid rgb(32, 32, 36)"
         />
         {mode === "signUp" && (
@@ -85,8 +96,7 @@ const AuthForm = () => {
             placeholder="NICKNAME"
             type="text"
             onChange={handleChange}
-            value={nickname}
-            disabled={loading}
+            value={formData.nickname}
             borderBottom="1px solid rgb(32, 32, 36)"
           />
         )}
@@ -95,7 +105,6 @@ const AuthForm = () => {
       <div className="flex-col">
         <Button
           type="submit"
-          disabled={loading}
           border="1px solid rgb(32, 32, 36)"
           backgroundColor="rgb(32, 32, 36)"
           color="white"
@@ -112,9 +121,6 @@ const AuthForm = () => {
           </Link>
         </Button>
       </div>
-
-      {loading && <p className="text-0.5rem mt-4">Loading...</p>}
-      {error && <p className="text-0.5rem mt-4 font-serif">ERROR: {error}</p>}
     </form>
   );
 };

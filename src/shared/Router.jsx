@@ -9,7 +9,6 @@ import ProtectedRoute from "./ProtectedRoute";
 import Layout from "../components/Layout";
 import SignUp from "../pages/sign/SignUp";
 import useBearsStore from "../zustand/bearsStore";
-import AllTestResultsPage from "../pages/test/AllTestResultPage";
 
 const Router = () => {
   return (
@@ -27,8 +26,15 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
-          <Route path="/test" element={<TestPage />} />
-          <Route path="/results" element={<AllTestResultsPage />} />
+          <Route
+            path="/test"
+            element={
+              <ProtectedRoute>
+                <TestPage />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/results" element={<TestResultPage />} />
         </Routes>
       </Layout>
     </BrowserRouter>

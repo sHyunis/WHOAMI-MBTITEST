@@ -37,12 +37,12 @@ const TestPage = () => {
   };
 
   return (
-    <>
+    <div>
       <h2 className="mb-4 mt-4 w-[330px] bg-navy text-white mx-auto rounded">
         MBTI TEST
       </h2>
       <TestForm onSubmit={handleTestSubmit} />
-    </>
+    </div>
   );
 };
 

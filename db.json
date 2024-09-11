@@ -19,14 +19,6 @@
       "nickname": "추석"
     }
   ],
-  "profiles": [
-    {
-      "id": "28bc",
-      "email": "alice0751@naver.com",
-      "password": "Beast1016!",
-      "nickname": "우리집 하늘이 귀여워"
-    }
-  ],
   "testResults": [
     {
       "id": "d152",
@@ -56,6 +48,66 @@
         "NO"
       ],
       "date": "2024-09-11T11:04:22.957Z",
+      "visibility": true
+    },
+    {
+      "id": "83ea",
+      "userId": "alice0751@naver.com",
+      "nickname": "maybe",
+      "result": "ENTJ",
+      "answers": [
+        "NO",
+        "NO",
+        "YES",
+        "YES",
+        "YES",
+        "NO",
+        "NO",
+        "YES",
+        "YES",
+        "YES",
+        null,
+        null,
+        "NO",
+        "NO",
+        "YES",
+        "NO",
+        "YES",
+        "NO",
+        "YES",
+        "YES"
+      ],
+      "date": "2024-09-11T14:46:07.398Z",
+      "visibility": true
+    },
+    {
+      "id": "a8a4",
+      "userId": "alice0751@naver.com",
+      "nickname": "maybe",
+      "result": "INFP",
+      "answers": [
+        "NO",
+        "YES",
+        "YES",
+        "NO",
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "date": "2024-09-11T15:08:43.840Z",
       "visibility": true
     }
   ]
