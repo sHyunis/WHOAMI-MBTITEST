@@ -27,14 +27,7 @@ const Router = () => {
               </ProtectedRoute>
             }
           />
-          <Route
-            path="/test"
-            element={
-              <ProtectedRoute>
-                <TestPage />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="/test" element={<TestPage />} />
           <Route path="/results" element={<AllTestResultsPage />} />
         </Routes>
       </Layout>
