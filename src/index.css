@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: "main";
+  src: url("./assets/fonts/VIOLA.ttf");
+}
+@font-face {
+  font-family: "content";
+  src: url("./assets/fonts/MANILA.ttf");
+}
+* {
+  font-family: "main";
+  background-color: rgb(229, 246, 245);
+  color: rgb(32, 32, 36);
+}

@@ -1,0 +1,25 @@
+{
+  "users": [
+    {
+      "id": "28bc",
+      "email": "alice0751@naver.com",
+      "password": "Beast1016!",
+      "nickname": "하늘이"
+    },
+    {
+      "id": "6100",
+      "email": "alice0751@naver.com",
+      "password": "Beast1016!",
+      "nickname": "어랑"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "28bc",
+      "email": "alice0751@naver.com",
+      "password": "Beast1016!",
+      "nickname": "실시"
+    }
+  ],
+  "testResults": []
+}
