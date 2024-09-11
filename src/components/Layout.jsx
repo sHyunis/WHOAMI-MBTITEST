@@ -6,7 +6,7 @@ import Button from "./Button";
 const Layout = ({ children }) => {
   const { user, setUser } = useBearsStore((state) => ({
     user: state.user,
-    setUser: state.setuser,
+    setUser: state.setUser,
   }));
 
   const navigate = useNavigate();
