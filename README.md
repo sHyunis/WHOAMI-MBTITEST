@@ -133,73 +133,28 @@ const ButtonStyled = styled.button`
    tailwind.config.js에서 사용자 설정 색상이나 폰트크기, 폰트스타일들을 지정해 간편하게 사용할 수 있는 점에서 편리했다. 하지만 스타일을 많이 주어야할 때 가독성이 떨어지는 느낌이 들었고 이것을 적절히 styled-components와 섞어 쓰는 것이 좋을 것 같다고 느꼈다. 또 tailwind의 문법에 아직 익숙하지 않아 내가 원하는 디자인을 빠른 시간내에 구현하는 게 쉽지 않았지만 명명법을 조금 더 익히면 편리하게 쓸 수 있을 것 같다.
 3. 로그인, 회원가입 기능
    axios과 json-server를 사용해 기능 개발을 하게 되었는데 이 과정에서 유저 정보를 zustand에서 유저상태를 관리하는 과정에 문제를 겪었다.
-   custom instance로 baseURL을 지정한 후 진행을 하였다.
-   protected Router를 만들기 위해 user상태를 받았다.
-   회원가입을 하고 json-server에 정보가 들어왔는데 로그인이 계속해서 되지 않아 어떤 것 때문인지 알 수 없었는데 localStorage로 새로고침시에도 token을 저장하려 api.post를 해뒀던 게 문제가 되어 로그인이 되지 않았다.
-   토큰 인증을 구현하려고 시도했으나 이 부분은 아직 기능 구현이 되지 않아 get방식으로 json-server에 저장된 아이디 비밀번호로 로그인 인증 검사를 해주었다.
+   protected Router를 만들기 위해 user상태를 zustand를 사용해 bearsStore.js를 만들어 user의 기본값을 null로 주고 로그인을 하면 setUser함수로 user의 상태를 변경시켜주었다.
+   회원가입을 하고 json-server에 정보가 들어왔는데 로그인이 계속해서 되지 않아 어떤 것 때문인지 알 수 없었는데 localhost를 사용하지않고 moneyful API를 사용해 RESTAPI를 사용하니 해결이 되었다.
 
 ```js
-const useBearsStore = create((set, get) => ({
-  user: null,
-  profile: null,
-  error: null,
-  loading: false,
-  mode: "login",
+const API_URL = "https://moneyfulpublicpolicy.co.kr";
 
-  setMode: (newMode) => set({ mode: newMode }),
+// 회원가입
+export const register = async (userData) => {
+  const response = await axios.post(`${API_URL}/register`, userData);
+  return response.data;
+};
 
-  register: async (email, password, nickname) => {
-    set({ loading: true, error: null });
-    try {
-      await api.post("/users", { email, password, nickname });
-      set({ loading: false });
-    } catch (error) {
-      set({ error: error.message, loading: false });
-    }
-  },
-
-  login: async (email, password) => {
-    set({ loading: true, error: null });
-    try {
-      const response = await api.get("/users", { params: { email, password } });
-      const user = response.data.find(
-        (user) => user.email === email && user.password === password
-      );
-      if (user) {
-        set({ user, loading: false });
-        const profileResponse = await api.get(`/profiles`, {
-          params: { userId: user.id },
-        });
-        set({ profile: profileResponse.data[0] });
-      } else {
-        throw new Error("Invalid credentials");
-      }
-    } catch (error) {
-      set({ error: error.message, loading: false });
-    }
-  },
-
-```
-
-4. 사용자 프로필 가져오기 기능
-   코드를 처음부터 분리해서 tanstackquery의 queryFn에 들어갈 함수를 bearStore에서 정리하려고 했는데 코드를 쓴 후 가져오는 과정에서 계속 404오류를 발견했다. 수정방안을 계속 찾다 꼭 분리하지 않아도 구현이 되는 것이 중요하다라는 생각이 들어 auth.js에 사용자 프로필 가져오는 부분에 로직을 넣어주었다.
-
-```js
-export const useUserProfile = (id) => {
-  const { user } = useBearsStore((state) => ({
-    user: state.user,
-  }));
-
-  return useQuery({
-    queryKey: ["profiles", id],
-    queryFn: async () => {
-      if (!user) throw new Error("User is not logged in");
-      const response = await api.get(`/profiles`, { params: { userId: id } });
-      return response.data[0];
-    },
-    onError: (error) => {
-      console.error("프로필 가져오기 오류:", error.message);
-    },
-  });
+// 로그인
+export const login = async (userData) => {
+  const { setUser } = useBearsStore.getState();
+  try {
+    const response = await axios.post(`${API_URL}/login`, userData);
+    const user = response.data;
+    setUser(user); // 로그인 성공 시 user 상태 업데이트
+    return user;
+  } catch (error) {
+    throw new Error(error.response?.data?.message || "Login failed");
+  }
 };
 ```
