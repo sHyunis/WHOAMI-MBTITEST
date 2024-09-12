@@ -1,24 +1,5 @@
 {
-  "users": [
-    {
-      "id": "28bc",
-      "email": "alice0751@naver.com",
-      "password": "Beast1016!",
-      "nickname": "하늘이"
-    },
-    {
-      "id": "6100",
-      "email": "alice0751@naver.com",
-      "password": "Beast1016!",
-      "nickname": "어랑"
-    },
-    {
-      "id": "b248",
-      "email": "gkalice0751@gmail.com",
-      "password": "Beast1016!",
-      "nickname": "추석"
-    }
-  ],
+  "users": [],
   "testResults": [
     {
       "id": "d152",
@@ -138,6 +119,35 @@
         null
       ],
       "date": "2024-09-11T15:48:33.158Z",
+      "visibility": true
+    },
+    {
+      "id": "d73e",
+      "nickname": "drum",
+      "result": "ESTJ",
+      "answers": [
+        "YES",
+        "YES",
+        "YES",
+        "YES",
+        "YES",
+        "NO",
+        "YES",
+        "NO",
+        "YES",
+        "YES",
+        "YES",
+        "YES",
+        "YES",
+        "YES",
+        "YES",
+        "YES",
+        "NO",
+        "YES",
+        "YES",
+        "YES"
+      ],
+      "date": "2024-09-11T15:55:27.417Z",
       "visibility": true
     }
   ]

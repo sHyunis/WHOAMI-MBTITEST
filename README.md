@@ -6,8 +6,8 @@ https://whoami-mbtitest.vercel.app/
 
 <img width="1430" alt="스크린샷 2024-09-11 오후 3 41 12" src="https://github.com/user-attachments/assets/c094f908-7943-4e12-8080-f1ab6d7ad2b3">
 <img width="1400" alt="스크린샷 2024-09-11 오후 3 41 30" src="https://github.com/user-attachments/assets/cea37617-1cec-48c8-9e78-514d9a294f3c">
-<img width="1389" alt="스크린샷 2024-09-11 오후 3 43 46" src="https://github.com/user-attachments/assets/98e4b634-7439-4738-b6ae-d487dfd96f31">
-<img width="1378" alt="스크린샷 2024-09-11 오후 3 43 57" src="https://github.com/user-attachments/assets/f825c50a-f2df-41f5-9e82-4631f7b4dbe2">
+<img width="1353" alt="스크린샷 2024-09-12 오후 1 51 15" src="https://github.com/user-attachments/assets/147ee3a4-a577-4b80-bdf5-1490b7fe82af">
+<img width="1338" alt="스크린샷 2024-09-12 오후 1 53 06" src="https://github.com/user-attachments/assets/5616aed4-78ef-4131-a38f-d10776ff3d20">
 
 ---
 
